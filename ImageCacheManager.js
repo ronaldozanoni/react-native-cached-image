@@ -58,7 +58,7 @@ module.exports = (defaultOptions = {}, urlCache = MemoryCache, fs = fsUtils, pat
     function isCached(url, options) {
         const cacheableUrl = getCachableUrl(url, options);
         return getCachedFile(cacheableUrl, options)
-            .then(filePath => !!filePath)
+            .then(filePath => filePath)
             .catch(() => false);
     }
 
