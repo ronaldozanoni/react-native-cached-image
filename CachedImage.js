@@ -110,6 +110,10 @@ class CachedImage extends React.Component {
         }
     }
 
+    onLoadEnd(source) {
+        this.props.onLoadEnd && this.props.onLoadEnd(source);
+    }
+
     getImageCacheManagerOptions() {
         return _.pick(this.props, _.keys(ImageCacheManagerOptionsPropTypes));
     }
@@ -149,7 +153,7 @@ class CachedImage extends React.Component {
                 });
             })
             .catch(err => {
-                // console.warn(err);
+                console.warn(err);
                 this.safeSetState({
                     cachedImagePath: null,
                     isCacheable: false
@@ -178,7 +182,8 @@ class CachedImage extends React.Component {
             ...props,
             key: props.key || source.uri,
             style,
-            source
+            source,
+            onLoadEnd: this.onLoadEnd.bind(this, source)
         });
     }
 
